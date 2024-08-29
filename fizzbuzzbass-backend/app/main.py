@@ -4,7 +4,6 @@ from fastapi import FastAPI
 
 from api.loader import api_router
 
-# TODO fix PYTHONPATH="./"
 app = FastAPI(
     title="FizzBuzzBass backend",
     description="Home task for developing a FizzBuzzBass application",
