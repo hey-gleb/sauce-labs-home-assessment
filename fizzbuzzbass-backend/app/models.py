@@ -1,5 +1,7 @@
-from pydantic import BaseModel as PydanticBaseModel
+from pydantic import BaseModel as PydanticBaseModel, ConfigDict
 
 
 class BaseModel(PydanticBaseModel):
-    pass
+    model_config = ConfigDict(
+        populate_by_name=True,
+    )

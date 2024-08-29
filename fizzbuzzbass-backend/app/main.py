@@ -2,7 +2,7 @@ import uvicorn
 
 from fastapi import FastAPI
 
-from api.loader import api_router
+from app.api.loader import api_router
 
 app = FastAPI(
     title="FizzBuzzBass backend",

@@ -2,13 +2,18 @@ from fastapi import APIRouter
 
 from app.api.fizzbuzzbass.models import GameForm, GameResult
 
-router = APIRouter()
+router = APIRouter(tags=["game"])
 
 
 @router.post(
-    "/",
+    "/game",
     description="Endpoint for submitting a value for fizz buzz bass game",
     response_model=GameResult,
+    responses={
+        200: {"description": "Result successfully returned"},
+        422: {"description": "Invalid request body"},
+        500: {"description": "Internal error"},
+    },
 )
 def submit_game_value(form: GameForm) -> GameResult:
     game_value = form.game_value
