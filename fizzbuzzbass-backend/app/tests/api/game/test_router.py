@@ -3,7 +3,7 @@ from typing import Union
 
 from fastapi.testclient import TestClient
 
-from app.api.fizzbuzzbass.models import GameForm, GameResult
+from app.api.game.models import GameForm, GameResult
 
 
 class TestSubmitGameValue:
