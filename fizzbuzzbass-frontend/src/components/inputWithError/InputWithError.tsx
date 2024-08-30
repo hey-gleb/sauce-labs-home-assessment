@@ -10,7 +10,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   errorConfig?: ErrorConfig;
 }
 
-const Input = React.forwardRef(
+const InputWithError = React.forwardRef(
   (props: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
     const {
       className = "",
@@ -23,10 +23,13 @@ const Input = React.forwardRef(
       : null;
 
     return (
-      <div className={`h-[70px] ${className}`} data-testid={"input-container"}>
+      <div
+        className={`h-[70px] ${className}`}
+        data-testid={"inputWithError-container"}
+      >
         <input
           className={
-            "block w-full px-3 py-2 border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:border-blue-500" +
+            "block w-full px-3 py-2 border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:border-blue-500 " +
             errorInputStyles
           }
           ref={ref}
@@ -34,7 +37,7 @@ const Input = React.forwardRef(
         />
         {errorConfig.visible && (
           <p
-            data-testid={"input-error-message"}
+            data-testid={"inputWithError-error-message"}
             className={"text-s mt-[5px] text-red-500"}
           >
             {errorConfig?.message}
@@ -45,4 +48,4 @@ const Input = React.forwardRef(
   },
 );
 
-export default Input;
+export default InputWithError;

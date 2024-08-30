@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 
-import Input from "../input/Input";
+import InputWithError from "../inputWithError/InputWithError";
 import Button from "../button/Button";
 
 import { submitGameValue } from "../../api/submitGameValue";
@@ -18,7 +18,7 @@ const Main: React.FC = () => {
   const [inputErrorConfig, setInputErrorConfig] = useState<ErrorConfig>(
     DEFAULT_INPUT_ERROR_CONFIG,
   );
-  const [result, setResult] = useState<number | string | null>(null);
+  const [result, setResult] = useState<string | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -38,9 +38,9 @@ const Main: React.FC = () => {
       const gameValue = inputRef.current?.value?.trim();
       if (gameValue && validateInput()) {
         submitGameValue({ gameValue: parseInt(gameValue) })
-          .then((response) => setResult(response.data.result))
+          .then((response) => setResult(response.data.result.toString()))
           .catch((error) =>
-            console.error(`Failed to submit the game value`, error),
+            console.error("Failed to submit the game value", error),
           )
           .finally(() => eraseInputError());
         return;
@@ -77,13 +77,13 @@ const Main: React.FC = () => {
               "mb-[25px] flex border-b border-blue-500 py-2 justify-between items-start"
             }
           >
-            <Input
+            <InputWithError
               className={"w-full mr-[30px]"}
               placeholder={"Some number value"}
               ref={inputRef}
               onFocus={eraseInputError}
               errorConfig={inputErrorConfig}
-              data-testid={"main-input"}
+              data-testid={"main-inputWithError"}
             />
             <Button type={"submit"} data-testid={"main-submit-button"}>
               Submit

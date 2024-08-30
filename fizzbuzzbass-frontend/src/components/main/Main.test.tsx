@@ -32,27 +32,31 @@ describe("Main component tests", () => {
     render(<Main />);
     expect(screen.getByTestId("main")).toBeInTheDocument();
     expect(screen.getByTestId("main-form")).toBeInTheDocument();
-    expect(screen.getByTestId("main-input")).toBeInTheDocument();
+    expect(screen.getByTestId("main-inputWithError")).toBeInTheDocument();
     expect(screen.getByTestId("main-submit-button")).toBeInTheDocument();
   });
 
-  it("should hide input error on input focus", () => {
+  it("should hide inputWithError error on inputWithError focus", () => {
     render(<Main />);
-    const inputElement = screen.getByTestId("main-input");
+    const inputElement = screen.getByTestId("main-inputWithError");
     expect(inputElement).toBeInTheDocument();
     const buttonElement = screen.getByTestId("main-submit-button");
     expect(buttonElement).toBeInTheDocument();
     fireEvent.change(inputElement, { target: { value: "Invalid value" } });
     fireEvent.submit(screen.getByTestId("main-form"));
-    expect(screen.getByTestId("input-container").childNodes.length).toBe(2);
+    expect(
+      screen.getByTestId("inputWithError-container").childNodes.length,
+    ).toBe(2);
     fireEvent.focus(inputElement);
-    expect(screen.getByTestId("input-container").childNodes.length).toBe(1);
+    expect(
+      screen.getByTestId("inputWithError-container").childNodes.length,
+    ).toBe(1);
   });
 
   it("should send request when game value passed and form submitted", async () => {
     const testGameValue = "3";
     render(<Main />);
-    const inputElement = screen.getByTestId("main-input");
+    const inputElement = screen.getByTestId("main-inputWithError");
     expect(inputElement).toBeInTheDocument();
     const buttonElement = screen.getByTestId("main-submit-button");
     expect(buttonElement).toBeInTheDocument();
