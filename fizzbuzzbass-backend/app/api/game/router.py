@@ -2,11 +2,11 @@ from fastapi import APIRouter
 
 from app.api.game.models import GameForm, GameResult
 
-router = APIRouter(tags=["game"])
+router = APIRouter(prefix="/game", tags=["game"])
 
 
 @router.post(
-    "/game",
+    "/turn",
     description="Endpoint for submitting a value for fizz buzz bass game",
     response_model=GameResult,
     responses={

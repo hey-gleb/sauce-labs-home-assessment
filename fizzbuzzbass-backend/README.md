@@ -53,7 +53,7 @@ To run tests, run the following command
 #### Submit game value
 
 ```http
-  POST /api/game
+  POST /api/game/turn
 ```
 
 Request body

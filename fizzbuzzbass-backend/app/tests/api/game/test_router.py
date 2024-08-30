@@ -28,7 +28,7 @@ class TestSubmitGameValue:
         self, client: TestClient, game_value: int, expected_result: Union[str, int]
     ) -> None:
         response = client.post(
-            "/api/game", json=GameForm(game_value=game_value).model_dump(by_alias=True)
+            "/api/game/turn", json=GameForm(game_value=game_value).model_dump(by_alias=True)
         )
         assert response.status_code == 200
         content = GameResult.model_validate(response.json())
@@ -41,9 +41,9 @@ class TestSubmitGameValue:
     def test_submit_game_value__invalid_game_val(
         self, client: TestClient, game_value
     ) -> None:
-        response = client.post("/api/game", json={"gameValue": game_value})
+        response = client.post("/api/game/turn", json={"gameValue": game_value})
         assert response.status_code == 422
 
     def test_submit_game_value__no_req_body(self, client: TestClient) -> None:
-        response = client.post("/api/game", json=None)
+        response = client.post("/api/game/turn", json=None)
         assert response.status_code == 422
