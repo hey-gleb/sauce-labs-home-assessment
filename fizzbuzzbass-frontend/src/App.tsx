@@ -1,5 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 
+import Input from "./components/input/Input";
+
 import { submitGameValue } from "./api/submitGameValue";
 
 import "./App.css";
@@ -35,13 +37,14 @@ const App: React.FC = () => {
     (e: React.FormEvent) => {
       e.preventDefault();
       const gameValue = inputRef.current?.value?.trim();
-      if (!!gameValue && validateInput()) {
+      if (gameValue && validateInput()) {
         submitGameValue({ gameValue: parseInt(gameValue) })
           .then((response) => setResult(response.data.result))
           .catch((error) => {
             console.error(`Failed to submit the game value`, error);
           })
           .finally(() => eraseInputError());
+        return;
       }
       setInputErrorConfig({
         visible: true,
@@ -56,12 +59,12 @@ const App: React.FC = () => {
       <h1>Fizz Buzz Bass game</h1>
       <h3>Enter some number value to proceed</h3>
       <form onSubmit={onFormSubmit}>
-        <input
+        <Input
           placeholder={"Some number value"}
           ref={inputRef}
           onFocus={eraseInputError}
+          errorConfig={inputErrorConfig}
         />
-        {inputErrorConfig.visible && <p>{inputErrorConfig?.message}</p>}
         <button type={"submit"}>Submit</button>
       </form>
       {result && (
