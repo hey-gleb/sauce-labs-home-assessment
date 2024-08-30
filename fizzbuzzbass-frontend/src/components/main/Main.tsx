@@ -1,8 +1,9 @@
 import React, { useCallback, useRef, useState } from "react";
 
-import Input from "./components/input/Input";
+import Input from "../input/Input";
+import Button from "../button/Button";
 
-import { submitGameValue } from "./api/submitGameValue";
+import { submitGameValue } from "../../api/submitGameValue";
 
 interface ErrorConfig {
   visible: boolean;
@@ -13,7 +14,7 @@ const DEFAULT_INPUT_ERROR_CONFIG: ErrorConfig = {
   visible: false,
 };
 
-const App: React.FC = () => {
+const Main: React.FC = () => {
   const [inputErrorConfig, setInputErrorConfig] = useState<ErrorConfig>(
     DEFAULT_INPUT_ERROR_CONFIG,
   );
@@ -38,9 +39,9 @@ const App: React.FC = () => {
       if (gameValue && validateInput()) {
         submitGameValue({ gameValue: parseInt(gameValue) })
           .then((response) => setResult(response.data.result))
-          .catch((error) => {
-            console.error(`Failed to submit the game value`, error);
-          })
+          .catch((error) =>
+            console.error(`Failed to submit the game value`, error),
+          )
           .finally(() => eraseInputError());
         return;
       }
@@ -53,7 +54,10 @@ const App: React.FC = () => {
   );
 
   return (
-    <section className="px-4 px- mx-auto max-w-lg max-w-l justify-center m-10">
+    <section
+      className="px-4 px- mx-auto max-w-lg max-w-l justify-center m-10"
+      data-testid={"main"}
+    >
       <div className="p-5 flex border border-blue-200 flex-col rounded-2xl shadow-2xl w-[450px] h-[280px]">
         <div className={"text-center"}>
           <h1 className={"text-2xl font-bold text-gray-900 mb-1"}>
@@ -66,6 +70,7 @@ const App: React.FC = () => {
         <form
           className={"h-full rounded px-8 pt-6 pb-8"}
           onSubmit={onFormSubmit}
+          data-testid={"main-form"}
         >
           <div
             className={
@@ -78,18 +83,17 @@ const App: React.FC = () => {
               ref={inputRef}
               onFocus={eraseInputError}
               errorConfig={inputErrorConfig}
+              data-testid={"main-input"}
             />
-            <button
-              className={
-                "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              }
-              type={"submit"}
-            >
+            <Button type={"submit"} data-testid={"main-submit-button"}>
               Submit
-            </button>
+            </Button>
           </div>
           {result && (
-            <div className={"text-center text-2xl font-medium text-gray-900"}>
+            <div
+              className={"text-center text-2xl font-medium text-gray-900"}
+              data-testid={"main-result"}
+            >
               {result}
             </div>
           )}
@@ -99,4 +103,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Main;

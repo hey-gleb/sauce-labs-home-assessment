@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 
-interface GameValueForm {
+export interface GameValueForm {
   gameValue: number;
 }
 
-interface GameValueResponse {
+export interface GameValueResponse {
   result: number | string;
 }
 

@@ -19,23 +19,24 @@ const Input = React.forwardRef(
     } = props;
 
     const errorInputStyles = errorConfig.visible
-      ? "border-red-600 text-red-500 bg-red-100"
+      ? "text-red-500 bg-red-100"
       : null;
 
     return (
-      <div className={`h-[70px] ${className}`}>
+      <div className={`h-[70px] ${className}`} data-testid={"input-container"}>
         <input
-          aria-invalid={errorConfig.visible}
           className={
-            "block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400" +
-            "focus:outline-none focus:ring-1 focus:border-blue-500 " +
+            "block w-full px-3 py-2 border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:border-blue-500" +
             errorInputStyles
           }
           ref={ref}
           {...otherProps}
         />
         {errorConfig.visible && (
-          <p className={"text-s mt-[5px] text-red-500"}>
+          <p
+            data-testid={"input-error-message"}
+            className={"text-s mt-[5px] text-red-500"}
+          >
             {errorConfig?.message}
           </p>
         )}
