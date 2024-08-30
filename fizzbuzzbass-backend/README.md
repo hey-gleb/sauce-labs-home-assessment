@@ -1,5 +1,5 @@
 
-# FizzBuzzBass Backend-end application
+# FizzBuzzBass Back-end application
 
 Server application for playing FizzBuzzBass game. Provides functionality to receive some numeric value and respond if it's Fizz/Buzz/Bass value.
 
