@@ -7,7 +7,6 @@ from app.api.game.models import GameForm, GameResult
 
 
 class TestSubmitGameValue:
-
     @pytest.mark.parametrize(
         ["game_value", "expected_result"],
         [

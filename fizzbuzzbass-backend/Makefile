@@ -1,7 +1,13 @@
-PYTHONPATH:=$(CURDIR)
+export PYTHONPATH:=$(CURDIR)
 
 start:
 	python3 app/main.py
 
 format:
-	black ./
+	ruff format ./
+
+lint:
+	ruff check
+
+test:
+	pytest .

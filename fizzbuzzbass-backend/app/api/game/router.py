@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.fizzbuzzbass.models import GameForm, GameResult
+from app.api.game.models import GameForm, GameResult
 
 router = APIRouter(tags=["game"])
 
