@@ -1,5 +1,5 @@
 from pydantic import Field
-from typing import Union
+from typing import Union, Literal
 
 from app.models import BaseModel
 
@@ -9,4 +9,4 @@ class GameForm(BaseModel):
 
 
 class GameResult(BaseModel):
-    result: Union[str, int]
+    result: Union[Literal["Fizz", "Buzz", "Bass"], int]
