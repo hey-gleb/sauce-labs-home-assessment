@@ -1,26 +1,77 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useRef, useState } from "react";
 
-function App() {
+import { submitGameValue } from "./api/submitGameValue";
+
+import "./App.css";
+
+interface ErrorConfig {
+  visible: boolean;
+  message?: string;
+}
+
+const DEFAULT_INPUT_ERROR_CONFIG: ErrorConfig = {
+  visible: false,
+};
+
+const App: React.FC = () => {
+  const [inputErrorConfig, setInputErrorConfig] = useState<ErrorConfig>(
+    DEFAULT_INPUT_ERROR_CONFIG,
+  );
+  const [result, setResult] = useState<number | string | null>(null);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const eraseInputError = useCallback(
+    () => setInputErrorConfig(DEFAULT_INPUT_ERROR_CONFIG),
+    [],
+  );
+
+  const validateInput = (): boolean => {
+    const value = inputRef.current?.value?.trim();
+    return value ? /^\d+$/.test(value) : false;
+  };
+
+  const onFormSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      const gameValue = inputRef.current?.value?.trim();
+      if (!!gameValue && validateInput()) {
+        submitGameValue({ gameValue: parseInt(gameValue) })
+          .then((response) => setResult(response.data.result))
+          .catch((error) => {
+            console.error(`Failed to submit the game value`, error);
+          })
+          .finally(() => eraseInputError());
+      }
+      setInputErrorConfig({
+        visible: true,
+        message: "Invalid value passed",
+      });
+    },
+    [eraseInputError],
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Fizz Buzz Bass game</h1>
+      <h3>Enter some number value to proceed</h3>
+      <form onSubmit={onFormSubmit}>
+        <input
+          placeholder={"Some number value"}
+          ref={inputRef}
+          onFocus={eraseInputError}
+        />
+        {inputErrorConfig.visible && <p>{inputErrorConfig?.message}</p>}
+        <button type={"submit"}>Submit</button>
+      </form>
+      {result && (
+        <>
+          <h3>Result</h3>
+          <p>{result}</p>
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default App;
