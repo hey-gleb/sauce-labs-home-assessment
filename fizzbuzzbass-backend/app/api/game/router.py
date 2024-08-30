@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.game.models import GameForm, GameResult
+from app.api.game.models import GameForm, GameResult, GameResults
 
 router = APIRouter(prefix="/game", tags=["game"])
 
@@ -17,11 +17,11 @@ router = APIRouter(prefix="/game", tags=["game"])
 )
 def submit_game_value(form: GameForm) -> GameResult:
     game_value = form.game_value
-    result = game_value
+    result = str(game_value)
     if game_value % 3 == 0 and game_value % 5 == 0:
-        result = "Bass"
+        result = GameResults.BASS
     elif game_value % 3 == 0:
-        result = "Fizz"
+        result = GameResults.FIZZ
     elif game_value % 5 == 0:
-        result = "Buzz"
+        result = GameResults.BUZZ
     return GameResult(result=result)

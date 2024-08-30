@@ -64,7 +64,7 @@ Request body
 Response body
 | Property  | Type       | Description                        |
 | :-------- | :-------   | :----------------------------------|
-| `result` | `string` \| `number` | **Required**. Game result: Fizz, Buzz, Bass or input number |
+| `result` | `string` | **Required**. Game result: Fizz, Buzz, Bass or input number |
 
 ## Documentation
 
