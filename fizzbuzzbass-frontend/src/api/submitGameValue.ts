@@ -11,5 +11,5 @@ export interface GameValueResponse {
 export const submitGameValue = (
   form: GameValueForm,
 ): Promise<AxiosResponse<GameValueResponse>> => {
-  return axios.post("http://localhost:8000/game", form);
+  return axios.post("http://localhost:8000/api/game/turn", form);
 };
