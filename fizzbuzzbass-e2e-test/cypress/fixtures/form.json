@@ -1,0 +1,26 @@
+[
+  {
+    "gameValue": "1",
+    "expected": {
+      "result": "1"
+    }
+  },
+  {
+    "gameValue": "6",
+    "expected": {
+      "result": "Fizz"
+    }
+  },
+  {
+    "gameValue": "25",
+    "expected": {
+      "result": "Buzz"
+    }
+  },
+  {
+    "gameValue": "30",
+    "expected": {
+      "result": "Bass"
+    }
+  }
+]
