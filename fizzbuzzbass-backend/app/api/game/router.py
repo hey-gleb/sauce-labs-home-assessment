@@ -16,6 +16,11 @@ router = APIRouter(prefix="/game", tags=["game"])
     },
 )
 def submit_game_value(form: GameForm) -> GameResult:
+    """
+    Calculates the result of the game based on the incoming values
+    :param form: game form
+    :return: game result
+    """
     game_value = form.game_value
     result = str(game_value)
     if game_value % 3 == 0 and game_value % 5 == 0:
